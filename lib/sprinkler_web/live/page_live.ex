@@ -1,4 +1,5 @@
 defmodule SprinklerWeb.PageLive do
+  @moduledoc false
   use SprinklerWeb, :live_view
 
   @impl true

@@ -47,7 +47,8 @@ defmodule Sprinkler.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:tortoise, "~> 0.9"}
+      {:tortoise, "~> 0.9"},
+      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false}
     ]
   end
 
