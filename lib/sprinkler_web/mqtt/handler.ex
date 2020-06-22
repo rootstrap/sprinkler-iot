@@ -1,4 +1,6 @@
 defmodule SprinklerWeb.Mqtt.Handler do
+  @moduledoc false
+
   use Tortoise.Handler
 
   def init(args) do
@@ -15,8 +17,8 @@ defmodule SprinklerWeb.Mqtt.Handler do
 
   def handle_message(["rs", client_id, "telemetry"], payload, state) do
     # What should we do with sensor information?
-    IO.inspect(client_id)
-    IO.inspect(payload)
+    # IO.inspect(client_id)
+    # IO.inspect(payload)
 
     {:ok, state}
   end

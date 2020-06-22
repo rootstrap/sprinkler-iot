@@ -1,4 +1,6 @@
 defmodule SprinklerWeb.Mqtt.Subscriber do
+  @moduledoc false
+
   use Supervisor
 
   @broker_host Application.get_env(:sprinkler, SprinklerWeb.Endpoint)[:broker_host]
