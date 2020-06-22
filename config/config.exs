@@ -16,7 +16,9 @@ config :sprinkler, SprinklerWeb.Endpoint,
   secret_key_base: "waMq4QHBtdZppI5ZKJlhHt4MslX/qCH+1Qs1KSS3jACwndYxcOQ226h5yNcGNnl7",
   render_errors: [view: SprinklerWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Sprinkler.PubSub,
-  live_view: [signing_salt: "0rRbKVvU"]
+  live_view: [signing_salt: "0rRbKVvU"],
+  broker_host: "localhost",
+  broker_port: 1883
 
 # Configures Elixir's Logger
 config :logger, :console,
