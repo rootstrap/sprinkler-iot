@@ -14,9 +14,11 @@ defmodule Sprinkler.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Sprinkler.PubSub},
       # Start the Endpoint (http/https)
-      SprinklerWeb.Endpoint
+      SprinklerWeb.Endpoint,
       # Start a worker by calling: Sprinkler.Worker.start_link(arg)
       # {Sprinkler.Worker, arg}
+      # Start a tortoise client
+      SprinklerWeb.Tortoise.Subscriber
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
