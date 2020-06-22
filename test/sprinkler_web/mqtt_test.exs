@@ -13,7 +13,8 @@ defmodule SprinklerWeb.MqttTest do
     end
 
     test "handle_message/3 returns ok" do
-      assert Handler.handle_message(["rs", Arduino, "telemetry"], "Just a message", []) == {:ok, []}
+      assert Handler.handle_message(["rs", Arduino, "telemetry"], "Just a message", []) ==
+               {:ok, []}
     end
 
     test "subscription/3 returns ok" do
