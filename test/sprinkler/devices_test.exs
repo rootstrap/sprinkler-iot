@@ -7,7 +7,11 @@ defmodule Sprinkler.DevicesTest do
     alias Sprinkler.Devices.Device
 
     @valid_attrs %{client_id: "some client_id", name: "some name", secret: "some secret"}
-    @update_attrs %{client_id: "some updated client_id", name: "some updated name", secret: "some updated secret"}
+    @update_attrs %{
+      client_id: "some updated client_id",
+      name: "some updated name",
+      secret: "some updated secret"
+    }
     @invalid_attrs %{client_id: nil, name: nil, secret: nil}
 
     def device_fixture(attrs \\ %{}) do

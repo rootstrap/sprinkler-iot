@@ -14,12 +14,6 @@ defmodule SprinklerWeb.DeviceLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
-    socket
-    |> assign(:page_title, "Edit Device")
-    |> assign(:device, Devices.get_device!(id))
-  end
-
   defp random_string do
     :crypto.strong_rand_bytes(16)
     |> Base.encode64()
@@ -29,13 +23,19 @@ defmodule SprinklerWeb.DeviceLive.Index do
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Device")
-    |> assign(:device, %Device{client_id: random_string, secret: random_string})
+    |> assign(:device, %Device{client_id: random_string(), secret: random_string()})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(:page_title, "Listing Devices")
     |> assign(:device, nil)
+  end
+
+  defp apply_action(socket, :edit, %{"id" => id}) do
+    socket
+    |> assign(:page_title, "Edit Device")
+    |> assign(:device, Devices.get_device!(id))
   end
 
   @impl true

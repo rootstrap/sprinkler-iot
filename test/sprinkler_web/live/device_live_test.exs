@@ -6,7 +6,11 @@ defmodule SprinklerWeb.DeviceLiveTest do
   alias Sprinkler.Devices
 
   @create_attrs %{client_id: "some client_id", name: "some name", secret: "some secret"}
-  @update_attrs %{client_id: "some updated client_id", name: "some updated name", secret: "some updated secret"}
+  @update_attrs %{
+    client_id: "some updated client_id",
+    name: "some updated name",
+    secret: "some updated secret"
+  }
   @invalid_attrs %{client_id: nil, name: nil, secret: nil}
 
   defp fixture(:device) do
