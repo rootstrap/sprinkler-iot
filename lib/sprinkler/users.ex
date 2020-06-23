@@ -5,7 +5,7 @@ defmodule Sprinkler.Users do
 
   import Ecto.Query, warn: false
   alias Sprinkler.Repo
-  alias Sprinkler.Users.{User, UserToken, UserNotifier}
+  alias Sprinkler.Users.{User, UserNotifier, UserToken}
 
   ## Database getters
 

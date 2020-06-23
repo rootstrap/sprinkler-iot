@@ -1,8 +1,8 @@
 defmodule SprinklerWeb.UserResetPasswordControllerTest do
   use SprinklerWeb.ConnCase, async: true
 
-  alias Sprinkler.Users
   alias Sprinkler.Repo
+  alias Sprinkler.Users
   import Sprinkler.UsersFixtures
 
   setup do
