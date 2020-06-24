@@ -10,7 +10,7 @@ use Mix.Config
 config :sprinkler,
   ecto_repos: [Sprinkler.Repo],
   broker_host: System.get_env("MQTT_BROKER_HOST", "localhost"),
-  broker_port: System.get_env("MQTT_BROKER_PORT", "1883")
+  broker_port: String.to_integer(System.get_env("MQTT_BROKER_PORT", "1883"))
 
 # Configures the endpoint
 config :sprinkler, SprinklerWeb.Endpoint,

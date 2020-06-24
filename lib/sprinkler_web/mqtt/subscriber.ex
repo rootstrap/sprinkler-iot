@@ -4,7 +4,7 @@ defmodule SprinklerWeb.Mqtt.Subscriber do
   use Supervisor
 
   @broker_host Application.get_env(:sprinkler, :broker_host)
-  @broker_port String.to_integer(Application.get_env(:sprinkler, :broker_port))
+  @broker_port Application.get_env(:sprinkler, :broker_port)
 
   def start_link(opts) do
     Supervisor.start_link(__MODULE__, opts, name: __MODULE__)
