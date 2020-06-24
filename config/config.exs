@@ -8,7 +8,9 @@
 use Mix.Config
 
 config :sprinkler,
-  ecto_repos: [Sprinkler.Repo]
+  ecto_repos: [Sprinkler.Repo],
+  broker_host: System.get_env("MQTT_BROKER_HOST", "localhost"),
+  broker_port: System.get_env("MQTT_BROKER_PORT", "1883")
 
 # Configures the endpoint
 config :sprinkler, SprinklerWeb.Endpoint,
@@ -16,9 +18,7 @@ config :sprinkler, SprinklerWeb.Endpoint,
   secret_key_base: "waMq4QHBtdZppI5ZKJlhHt4MslX/qCH+1Qs1KSS3jACwndYxcOQ226h5yNcGNnl7",
   render_errors: [view: SprinklerWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Sprinkler.PubSub,
-  live_view: [signing_salt: "0rRbKVvU"],
-  broker_host: "localhost",
-  broker_port: 1883
+  live_view: [signing_salt: "0rRbKVvU"]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -15,7 +15,7 @@ defmodule SprinklerWeb.Mqtt.Handler do
     {:ok, state}
   end
 
-  def handle_message(["rs", client_id, "telemetry"], payload, state) do
+  def handle_message(["rs", _client_id, "telemetry"], _payload, state) do
     # What should we do with sensor information?
     # IO.inspect(client_id)
     # IO.inspect(payload)

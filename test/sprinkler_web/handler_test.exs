@@ -1,7 +1,7 @@
-defmodule SprinklerWeb.MqttTest do
+defmodule SprinklerWeb.Mqtt.HandlerTest do
   use ExUnit.Case, async: true
 
-  describe "handler" do
+  describe "handler methods" do
     alias SprinklerWeb.Mqtt.Handler
 
     test "init/1 returns ok" do
