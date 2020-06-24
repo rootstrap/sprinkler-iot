@@ -1,0 +1,32 @@
+<h1>Show Device</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, SprinklerWeb.DeviceLive.FormComponent,
+    id: @device.id,
+    title: @page_title,
+    action: @live_action,
+    device: @device,
+    return_to: Routes.device_show_path(@socket, :show, @device) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @device.name %>
+  </li>
+
+  <li>
+    <strong>Secret:</strong>
+    <%= @device.secret %>
+  </li>
+
+  <li>
+    <strong>Client:</strong>
+    <%= @device.client_id %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.device_show_path(@socket, :edit, @device), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.device_index_path(@socket, :index) %></span>
