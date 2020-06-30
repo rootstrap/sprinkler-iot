@@ -9,7 +9,7 @@ defmodule SprinklerWeb.TemperatureLive do
     {:ok, assign(socket, temp: "Unknown")}
   end
 
-  def handle_info(%{topic: @telemetry, temp: payload}, socket) do
-    {:noreply, assign(socket, temp: payload)}
+  def handle_info(%{topic: @telemetry, event: "new_reading", payload: %{temp: temp}}, socket) do
+    {:noreply, assign(socket, temp: temp)}
   end
 end
