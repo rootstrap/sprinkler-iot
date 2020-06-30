@@ -1,7 +1,7 @@
 defmodule SprinklerWeb.Mqtt.HandlerTest do
   use ExUnit.Case, async: true
 
-  @telemetry "telemetry"
+  @telemetry_topic "telemetry"
 
   describe "handler methods" do
     alias SprinklerWeb.Mqtt.Handler
@@ -28,9 +28,9 @@ defmodule SprinklerWeb.Mqtt.HandlerTest do
     end
 
     test "handle_message/3 when telemetry is received" do
-      Phoenix.PubSub.subscribe(Sprinkler.PubSub, @telemetry)
+      Phoenix.PubSub.subscribe(Sprinkler.PubSub, @telemetry_topic)
       Handler.handle_message(["rs", "Arduino", "telemetry"], "25", [])
-      assert_receive %{topic: @telemetry, event: "new_reading", payload: %{temp: "25"}}
+      assert_receive %{topic: @telemetry_topic, event: "new_reading", payload: %{temp: "25"}}
     end
   end
 end
