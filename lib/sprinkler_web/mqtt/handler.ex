@@ -3,6 +3,8 @@ defmodule SprinklerWeb.Mqtt.Handler do
 
   use Tortoise.Handler
 
+  @telemetry "telemetry"
+
   def init(args) do
     {:ok, args}
   end
@@ -15,10 +17,10 @@ defmodule SprinklerWeb.Mqtt.Handler do
     {:ok, state}
   end
 
-  def handle_message(["rs", _client_id, "telemetry"], _payload, state) do
+  def handle_message(["rs", _client_id, "telemetry"], payload, state) do
     # What should we do with sensor information?
-    # IO.inspect(client_id)
-    # IO.inspect(payload)
+    # In which format are we receiving the temp? Might have to change this later.
+    Phoenix.PubSub.broadcast(Sprinkler.PubSub, @telemetry, %{topic: @telemetry, temp: payload})
 
     {:ok, state}
   end
