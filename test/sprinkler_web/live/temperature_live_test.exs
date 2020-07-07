@@ -9,7 +9,7 @@ defmodule SprinklerWeb.TemperatureLiveTest do
     {:ok, page_live, disconnected_html} = live(conn, "/temperature")
     assert disconnected_html =~ "Unknown"
     assert render(page_live) =~ "Unknown"
-    send(page_live.pid, %{topic: @telemetry_topic, event: "new_reading", payload: %{temp: "25"}})
+    send(page_live.pid, %{topic: @telemetry_topic, event: "new_reading", payload: %{tmp: "25"}})
     assert render(page_live) =~ "Temp is: 25"
   end
 end

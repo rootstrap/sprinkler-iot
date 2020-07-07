@@ -6,13 +6,13 @@ defmodule SprinklerWeb.TemperatureLive do
   def mount(_params, _session, socket) do
     Phoenix.PubSub.subscribe(Sprinkler.PubSub, @telemetry_topic)
 
-    {:ok, assign(socket, temp: "Unknown")}
+    {:ok, assign(socket, tmp: "Unknown")}
   end
 
   def handle_info(
-        %{topic: @telemetry_topic, event: "new_reading", payload: %{temp: temp}},
+        %{topic: @telemetry_topic, event: "new_reading", payload: %{tmp: tmp}},
         socket
       ) do
-    {:noreply, assign(socket, temp: temp)}
+    {:noreply, assign(socket, tmp: tmp)}
   end
 end

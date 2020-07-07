@@ -20,7 +20,7 @@ defmodule SprinklerWeb.Mqtt.Handler do
   def handle_message(["rs", _client_id, "telemetry"], payload, state) do
     # What should we do with sensor information?
     # In which format are we receiving the temp? Might have to change this later.
-    SprinklerWeb.Endpoint.broadcast(@telemetry_topic, "new_reading", %{temp: payload})
+    SprinklerWeb.Endpoint.broadcast(@telemetry_topic, "new_reading", %{tmp: payload})
     {:ok, state}
   end
 

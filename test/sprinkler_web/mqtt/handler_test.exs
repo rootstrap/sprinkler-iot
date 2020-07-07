@@ -30,7 +30,7 @@ defmodule SprinklerWeb.Mqtt.HandlerTest do
     test "handle_message/3 when telemetry is received" do
       Phoenix.PubSub.subscribe(Sprinkler.PubSub, @telemetry_topic)
       Handler.handle_message(["rs", "Arduino", "telemetry"], "25", [])
-      assert_receive %{topic: @telemetry_topic, event: "new_reading", payload: %{temp: "25"}}
+      assert_receive %{topic: @telemetry_topic, event: "new_reading", payload: %{tmp: "25"}}
     end
   end
 end
