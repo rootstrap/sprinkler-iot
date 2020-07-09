@@ -21,6 +21,7 @@ defmodule SprinklerWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    live "/dashboard", DashboardLive
 
     scope "/admin" do
       live "/devices", DeviceLive.Index, :index
