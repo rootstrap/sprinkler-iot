@@ -50,7 +50,8 @@ defmodule Sprinkler.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:tortoise, "~> 0.9"},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
-      {:phx_gen_auth, "~> 0.4.0", only: [:dev], runtime: false}
+      {:phx_gen_auth, "~> 0.4.0", only: [:dev], runtime: false},
+      {:mock, "~> 0.3.0", only: :test}
     ]
   end
 
