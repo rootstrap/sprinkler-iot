@@ -4,7 +4,8 @@ defmodule SprinklerWeb.TemperatureComponent do
 
   def render(assigns) do
     ~L"""
-    <div>Current temperature: <%= List.last(elem(@device, 1).tmps) %></div>
+    <div>Sprinkler <%= @device[:id] %></div>
+    <div>Current temperature: <%= List.first(@device[:tmps]) %></div>
     """
   end
 end
