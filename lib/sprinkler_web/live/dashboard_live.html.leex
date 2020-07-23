@@ -1,5 +1,3 @@
-<h1>Temperature Control</h1>
-
 <%= for device <- @devices do %>
   <%= live_component @socket, SprinklerWeb.TemperatureComponent, device: device %>
 <% end %>

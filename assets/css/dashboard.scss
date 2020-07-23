@@ -1,0 +1,28 @@
+.device {
+  background-color: $color-gray;
+  padding: 1rem;
+  width: 56rem;
+
+  h3, h4 { font-weight: bold; }
+
+  h3 { margin-left: 2rem;}
+
+  h4 { color: $color-gray-2; }
+
+  .metrics-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    &__metric {
+      background-color: white;
+      border-radius: 0.5rem;
+      padding: 1rem 3rem;
+      text-align: center;
+
+      div {
+        font-size: 3rem;
+        font-weight: bold;
+      }
+    }
+  }
+}
