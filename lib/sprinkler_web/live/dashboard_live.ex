@@ -6,7 +6,7 @@ defmodule SprinklerWeb.DashboardLive do
   @impl true
   def mount(_params, _session, socket) do
     Phoenix.PubSub.subscribe(Sprinkler.PubSub, @telemetry_topic)
-    {:ok, assign(socket, :devices, [%{id: "1", tmps: [2]}, %{id: "2", tmps: [2]}])}
+    {:ok, assign(socket, :devices, [%{id: 1, tmps: [5]}, %{id: 2, tmps: [5]}])}
   end
 
   def handle_info(
