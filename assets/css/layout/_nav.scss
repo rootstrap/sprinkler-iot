@@ -1,0 +1,15 @@
+.nav {
+  align-items: center;
+  display: flex;
+
+  &__link {
+      color: $color-gray;
+      display: block;
+      padding: 0 1rem 1rem 3.2rem;
+  }
+
+  li.username{
+    color: $color-gray;
+    font-weight: $font-weight-semi-bold;
+  }
+}

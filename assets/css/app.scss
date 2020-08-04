@@ -1,4 +1,10 @@
 /* This file is for your main application css. */
+
+@import "abstracts/variables";
+@import "layout/main";
+@import "layout/nav";
+@import "dashboard";
+@import "base/typography";
 @import "./phoenix.css";
 @import "../node_modules/nprogress/nprogress.css";
 
