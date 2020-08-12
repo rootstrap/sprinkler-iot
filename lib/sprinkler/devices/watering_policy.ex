@@ -1,4 +1,10 @@
 defmodule Sprinkler.Devices.WateringPolicy do
+  # TODO: check this values
+  @soil_moisture_wet 70
+  @soil_moisture_medium_wet 50
+  @ambience_temperature_high 25
+  @humidity_high 50
+
   def should_irrigate(moisture_input, temperature_input, humidity_input) do
     unless soil_moisture_wet?(moisture_input) do
       when_soil_moisture_not_wet(moisture_input, temperature_input, humidity_input)
@@ -36,8 +42,7 @@ defmodule Sprinkler.Devices.WateringPolicy do
   end
 
   defp soil_moisture_wet?(moisture_input) do
-    # TODO: check this values, 70%
-    if moisture_input > 70 do
+    if moisture_input > @soil_moisture_wet do
       true
     else
       false
@@ -45,8 +50,7 @@ defmodule Sprinkler.Devices.WateringPolicy do
   end
 
   defp soil_moisture_medium?(moisture_input) do
-    # TODO: check this values, medium > 50%
-    if moisture_input > 50 do
+    if moisture_input > @soil_moisture_medium_wet do
       true
     else
       false
@@ -54,8 +58,7 @@ defmodule Sprinkler.Devices.WateringPolicy do
   end
 
   defp ambience_temperature_high?(temperature_input) do
-    # TODO: check this values, high > 25 grades
-    if temperature_input > 25 do
+    if temperature_input > @ambience_temperature_high do
       true
     else
       false
@@ -63,8 +66,7 @@ defmodule Sprinkler.Devices.WateringPolicy do
   end
 
   defp humidity_high?(humidity_input) do
-    # TODO: check this values, high > 50%
-    if humidity_input > 50 do
+    if humidity_input > @humidity_high do
       true
     else
       false
