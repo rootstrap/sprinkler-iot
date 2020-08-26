@@ -21,10 +21,10 @@ defmodule Sprinkler.Devices.WateringPolicy do
 
   defp when_soil_moisture_medium(temperature_input, humidity_input) do
     if ambience_temperature_high?(temperature_input) do
-      irrigate('medium')
+      :medium
     else
       unless humidity_high?(humidity_input) do
-        irrigate('low')
+        :low
       end
     end
   end
@@ -32,57 +32,28 @@ defmodule Sprinkler.Devices.WateringPolicy do
   defp when_soil_moisture_not_medium(temperature_input, humidity_input) do
     if humidity_high?(humidity_input) do
       if ambience_temperature_high?(temperature_input) do
-        irrigate('high')
+        :high
       else
-        irrigate('medium')
+        :medium
       end
     else
-      irrigate('high')
+      :high
     end
   end
 
   defp soil_moisture_wet?(moisture_input) do
-    if moisture_input > @soil_moisture_wet do
-      true
-    else
-      false
-    end
+    moisture_input > @soil_moisture_wet
   end
 
   defp soil_moisture_medium?(moisture_input) do
-    if moisture_input > @soil_moisture_medium_wet do
-      true
-    else
-      false
-    end
+    moisture_input > @soil_moisture_medium_wet
   end
 
   defp ambience_temperature_high?(temperature_input) do
-    if temperature_input > @ambience_temperature_high do
-      true
-    else
-      false
-    end
+    temperature_input > @ambience_temperature_high
   end
 
   defp humidity_high?(humidity_input) do
-    if humidity_input > @humidity_high do
-      true
-    else
-      false
-    end
-  end
-
-  defp irrigate(irrigate_input) do
-    cond do
-      irrigate_input == 'high' ->
-        IO.puts("Irrigating high amount of water")
-
-      irrigate_input == 'medium' ->
-        IO.puts("Irrigating medium amount of water")
-
-      true ->
-        IO.puts("Irrigating low amount of water")
-    end
+    humidity_input > @humidity_high
   end
 end
