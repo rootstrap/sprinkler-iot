@@ -25,12 +25,22 @@ function loop() {
  */
 function readTelemetry() {
   return {
-    tmp: readTemperature()
+    tmp: readTemperature(),
+    hum: readHumidity(),
+    moist: readSoilMoisture()
   }
 }
 
 function readTemperature() {
   return randomNumber(10, 20)
+}
+
+function readHumidity() {
+  return randomNumber(30, 60)
+}
+
+function readSoilMoisture() {
+  return randomNumber(40, 80)
 }
 
 function randomNumber(min, max) {
