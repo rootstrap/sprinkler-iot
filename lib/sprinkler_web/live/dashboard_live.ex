@@ -6,7 +6,12 @@ defmodule SprinklerWeb.DashboardLive do
   @impl true
   def mount(_params, _session, socket) do
     Phoenix.PubSub.subscribe(Sprinkler.PubSub, @telemetry_topic)
-    {:ok, assign(socket, :devices, [%{id: 1, tmps: [5]}, %{id: 2, tmps: [5]}])}
+
+    {:ok,
+     assign(socket, :devices, [
+       %{id: 1, tmps: [5], hum: [2], moist: [2]},
+       %{id: 2, tmps: [5], hum: [2], moist: [2]}
+     ])}
   end
 
   @impl true
@@ -19,11 +24,16 @@ defmodule SprinklerWeb.DashboardLive do
         socket
       ) do
     tmp = payload["tmp"]
+    hum = payload["hum"]
+    moist = payload["moist"]
 
     updated_list =
       Enum.map(socket.assigns.devices, fn
-        %{id: ^device_id, tmps: tmps} = device -> %{device | tmps: [tmp | tmps]}
-        device -> device
+        %{id: ^device_id, tmps: tmps} = device ->
+          %{device | tmps: [tmp | tmps], hum: [hum | hum], moist: [moist | moist]}
+
+        device ->
+          device
       end)
 
     {:noreply, assign(socket, devices: updated_list)}
