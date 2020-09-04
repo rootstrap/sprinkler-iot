@@ -5,7 +5,7 @@ defmodule Sprinkler.Devices.WateringPolicy do
   @ambience_temperature_high 25
   @humidity_high 50
 
-  alias Devices.GardenReading
+  alias Sprinkler.Devices.GardenReading
 
   def irrigation_amount(%GardenReading{
         moisture: moisture_input,
@@ -22,6 +22,7 @@ defmodule Sprinkler.Devices.WateringPolicy do
       {:low, _, :low} -> :water_high
       {:low, :low, :high} -> :water_medium
       {:low, :high, :high} -> :water_high
+      {_, _, _} -> :no_water
     end
   end
 
