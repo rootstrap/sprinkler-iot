@@ -11,7 +11,7 @@ defmodule SprinklerWeb.Mqtt.Subscriber do
 
   @impl true
   def init(_opts) do
-    {host, port, username, password} = server_connection()
+    {host, port, username, password} = server_connection(@broker_url)
 
     children = [
       {Tortoise.Connection,
@@ -28,12 +28,12 @@ defmodule SprinklerWeb.Mqtt.Subscriber do
     Supervisor.init(children, strategy: :one_for_one)
   end
 
-  defp server_connection() do
+  defp server_connection(broker_url) do
     %URI{
       host: host,
       port: port,
       userinfo: user_info
-    } = URI.parse(@broker_url)
+    } = URI.parse(broker_url)
 
     [username, password] = String.split(user_info || ":", ":")
 
