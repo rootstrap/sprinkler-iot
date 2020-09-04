@@ -1,12 +1,16 @@
 const mqtt = require('mqtt')
 let client
 const DEVICE_ID = process.env.DEVICE_ID || '1'
+const HOST = process.env.SERVICE_HOST || 'localhost'
+const PORT = process.env.SERVICE_PORT || '1883'
+const USERNAME = process.env.USER_NAME || ''
+const PASSWORD = process.env.PASSWORD || ''
 
 /**
  * Simulating the device's setup function/
  */
 function setup() {
-  client = mqtt.connect('mqtt://localhost')
+  client = mqtt.connect({ host: HOST, port: parseInt(PORT), username: USERNAME, password: PASSWORD })
 }
 
 /**
