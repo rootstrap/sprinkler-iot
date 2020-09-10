@@ -5,11 +5,15 @@
   &__link {
       color: $color-gray;
       display: block;
-      padding: 0 1rem 1rem 3.2rem;
+      padding: 0 1rem 0 1rem;
   }
 
   li.username{
     color: $color-gray;
     font-weight: $font-weight-semi-bold;
   }
+}
+
+.user-menu {
+  display: flex;
 }

@@ -1,3 +1,9 @@
+.dashboard-page {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 5rem;
+}
+
 .device {
   background-color: $color-gray;
   padding: 1rem;

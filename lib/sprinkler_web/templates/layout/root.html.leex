@@ -13,7 +13,7 @@
   <body>
     <header>
       <section class="header-container">
-        <nav role="navigation", class="nav">
+        <nav role="navigation" class="nav">
           <%= render "_user_menu.html", assigns %>
           <ul>
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
@@ -21,9 +21,11 @@
             <% end %>
           </ul>
         </nav>
-        <li><%= link "Sprinkler", to: Routes.page_path(@conn, :index), class: "header-container__link" %></li>
+        <li><%= link "Sprinkler", to: Routes.root_path(@conn, SprinklerWeb.DashboardLive), class: "header-container__link" %></li>
       </section>
     </header>
-    <%= @inner_content %>
+    <div class="content">
+      <%= @inner_content %>
+    </div>
   </body>
 </html>
