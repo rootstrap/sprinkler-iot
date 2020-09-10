@@ -3,8 +3,7 @@ defmodule SprinklerWeb.Mqtt.Subscriber do
 
   use Supervisor
 
-  @broker_host Application.get_env(:sprinkler, :broker_host)
-  @broker_port Application.get_env(:sprinkler, :broker_port)
+  @broker_url Application.get_env(:sprinkler, :mqtt_broker_url)
 
   def start_link(opts) do
     Supervisor.start_link(__MODULE__, opts, name: __MODULE__)
@@ -12,16 +11,32 @@ defmodule SprinklerWeb.Mqtt.Subscriber do
 
   @impl true
   def init(_opts) do
+    {host, port, username, password} = server_connection(@broker_url)
+
     children = [
       {Tortoise.Connection,
        [
          client_id: RootstrapSprinkler,
-         server: {Tortoise.Transport.Tcp, host: @broker_host, port: @broker_port},
+         user_name: username,
+         password: password,
+         server: {Tortoise.Transport.Tcp, host: host, port: port},
          handler: {SprinklerWeb.Mqtt.Handler, []},
          subscriptions: ["rs/+/telemetry"]
        ]}
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
+  end
+
+  defp server_connection(broker_url) do
+    %URI{
+      host: host,
+      port: port,
+      userinfo: user_info
+    } = URI.parse(broker_url)
+
+    [username, password] = String.split(user_info || ":", ":")
+
+    {host, port, username, password}
   end
 end
