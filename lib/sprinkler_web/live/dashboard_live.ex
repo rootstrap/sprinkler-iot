@@ -9,6 +9,7 @@ defmodule SprinklerWeb.DashboardLive do
     {:ok, assign(socket, :devices, [%{id: 1, tmps: [5]}, %{id: 2, tmps: [5]}])}
   end
 
+  @impl true
   def handle_info(
         %{
           topic: @telemetry_topic,

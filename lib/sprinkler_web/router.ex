@@ -20,8 +20,8 @@ defmodule SprinklerWeb.Router do
   scope "/", SprinklerWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
-    live "/dashboard", DashboardLive
+    live "/", DashboardLive, as: :root
+    live "/dashboard", DashboardLive, as: :dashboard
 
     scope "/admin" do
       live "/devices", DeviceLive.Index, :index
@@ -50,7 +50,7 @@ defmodule SprinklerWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: SprinklerWeb.Telemetry
+      live_dashboard "/metrics_dashboard", metrics: SprinklerWeb.Telemetry
     end
   end
 

@@ -1,4 +1,4 @@
-<ul>
+<ul class="user-menu">
 <%= if @current_user do %>
   <li class="username"><%= @current_user.email %></li>
   <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit), class: "nav__link" %></li>
