@@ -33,6 +33,15 @@ defmodule Sprinkler.DevicesTest do
       assert Devices.get_device!(device.id) == device
     end
 
+    test "get_device!/1 returns the device with given id when it exists" do
+      device = device_fixture()
+      assert Devices.get_device(device.id) == device
+    end
+
+    test "get_device!/1 returns nil when the device doesn't exist" do
+      assert is_nil(Devices.get_device(1))
+    end
+
     test "create_device/1 with valid data creates a device" do
       assert {:ok, %Device{} = device} = Devices.create_device(@valid_attrs)
       assert device.client_id == "some client_id"
@@ -67,6 +76,38 @@ defmodule Sprinkler.DevicesTest do
     test "change_device/1 returns a device changeset" do
       device = device_fixture()
       assert %Ecto.Changeset{} = Devices.change_device(device)
+    end
+  end
+
+  describe "readings" do
+    alias Sprinkler.Devices
+    alias Sprinkler.Devices.GardenReading
+
+    test "new_garden_reading/1 returns a correct %GardenReading with correct attributes" do
+      assert %GardenReading{temperature: 10, humidity: 50, moisture: 70} =
+               Devices.new_garden_reading(%{
+                 temperature: 10,
+                 humidity: 50,
+                 moisture: 70
+               })
+    end
+
+    test "new_garden_reading/1 returns an empty %GardenReading with incorrect attributes" do
+      assert %GardenReading{temperature: nil, humidity: nil, moisture: nil} =
+               Devices.new_garden_reading(%{
+                 "temperature" => 10,
+                 "humidity" => 50,
+                 "moisture" => 70
+               })
+    end
+
+    test "irrigate_garden/2 calls the callback function with the correct" do
+      Devices.irrigate_garden(
+        %GardenReading{temperature: 10, humidity: 50, moisture: 10},
+        &send(self(), &1)
+      )
+
+      assert_received :water_medium
     end
   end
 end

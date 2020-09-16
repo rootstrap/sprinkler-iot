@@ -6,7 +6,7 @@ defmodule Sprinkler.Devices do
   import Ecto.Query, warn: false
   alias Sprinkler.Repo
 
-  alias Sprinkler.Devices.Device
+  alias Sprinkler.Devices.{Device, GardenReading, WateringPolicy}
 
   @doc """
   Returns the list of devices.
@@ -36,6 +36,22 @@ defmodule Sprinkler.Devices do
 
   """
   def get_device!(id), do: Repo.get!(Device, id)
+
+  @doc """
+  Gets a single device.
+
+  Returns nil if the Device does not exist.
+
+  ## Examples
+
+      iex> get_device!(123)
+      %Device{}
+
+      iex> get_device!(456)
+      nil
+
+  """
+  def get_device(id), do: Repo.get(Device, id)
 
   @doc """
   Creates a device.
@@ -101,4 +117,27 @@ defmodule Sprinkler.Devices do
   def change_device(%Device{} = device, attrs \\ %{}) do
     Device.changeset(device, attrs)
   end
+
+  @doc """
+  Create a new %GardenReading from a map
+
+  ## Examples
+
+      iex> new_garden_reading()
+      %GardenReading{}
+  """
+  def new_garden_reading(params \\ %{}) do
+    struct(GardenReading, params)
+  end
+
+  @doc """
+  Calls the irrigate callback with the amount to irrigate
+  """
+  def irrigate_garden(%GardenReading{} = reading, irrigate) when is_function(irrigate, 1) do
+    reading
+    |> WateringPolicy.irrigation_amount()
+    |> irrigate.()
+  end
+
+  def irrigate_garden(_, _), do: nil
 end

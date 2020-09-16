@@ -62,6 +62,6 @@ jobs:
     - name: Run Credo
       run: mix credo list --strict
     - name: Run Tests
-      run: mix test
+      run: mix test --cover
       env:
         DB_HOST: postgres
