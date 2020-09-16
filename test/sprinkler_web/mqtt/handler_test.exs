@@ -6,8 +6,8 @@ defmodule SprinklerWeb.Mqtt.HandlerTest do
   describe "handler methods" do
     import Mock
     alias Sprinkler.Devices
-    alias SprinklerWeb.Mqtt.Handler
     alias SprinklerWeb.Mqtt.Commands.Irrigate, as: IrrigateCommand
+    alias SprinklerWeb.Mqtt.Handler
 
     setup _ do
       :ok = Ecto.Adapters.SQL.Sandbox.checkout(Sprinkler.Repo)
@@ -46,7 +46,13 @@ defmodule SprinklerWeb.Mqtt.HandlerTest do
 
         Handler.handle_message(["rs", Integer.to_string(device.id), "telemetry"], reading, [])
 
-        assert_called(Tortoise.publish(RootstrapSprinkler, "rs/#{device.id}/commands", Jason.encode!(%IrrigateCommand{water: 5})))
+        assert_called(
+          Tortoise.publish(
+            RootstrapSprinkler,
+            "rs/#{device.id}/commands",
+            Jason.encode!(%IrrigateCommand{water: 5})
+          )
+        )
       end
     end
 
@@ -58,7 +64,7 @@ defmodule SprinklerWeb.Mqtt.HandlerTest do
       assert Handler.terminate("termination is imminent", []) == :ok
     end
 
-    defp device_fixture() do
+    defp device_fixture do
       {:ok, device} =
         Devices.create_device(%{
           client_id: "123",
