@@ -9,8 +9,8 @@ defmodule SprinklerWeb.DashboardLive do
 
     {:ok,
      assign(socket, :devices, [
-       %{id: 1, tmps: [5], hum: [2], moist: [2]},
-       %{id: 2, tmps: [5], hum: [2], moist: [2]}
+       %{id: 1, tmps: [], hum: [], moist: [], irrigations: []},
+       %{id: 2, tmps: [], hum: [], moist: [], irrigations: []}
      ])}
   end
 
@@ -23,19 +23,36 @@ defmodule SprinklerWeb.DashboardLive do
         },
         socket
       ) do
-    tmp = payload["tmp"]
-    hum = payload["hum"]
-    moist = payload["moist"]
+    temperature = payload["tmp"]
+    humidity = payload["hum"]
+    moisture = payload["moist"]
 
     updated_list =
       Enum.map(socket.assigns.devices, fn
-        %{id: ^device_id, tmps: tmps} = device ->
-          %{device | tmps: [tmp | tmps], hum: [hum | hum], moist: [moist | moist]}
+        %{id: ^device_id, tmps: tmps, hum: hum, moist: moist} = device ->
+          device
+          |> add_reading(:tmps, temperature)
+          |> add_reading(:hum, humidity)
+          |> add_reading(:moist, moisture)
 
         device ->
           device
       end)
 
     {:noreply, assign(socket, devices: updated_list)}
+  end
+
+  def add_reading(device, _metric_name, nil), do: device
+
+  def add_reading(%{moist: metric_values} = device, :moist, value) do
+    %{device | moist: [value | metric_values]}
+  end
+
+  def add_reading(%{hum: metric_values} = device, :hum, value) do
+    %{device | hum: [value | metric_values]}
+  end
+
+  def add_reading(%{tmps: metric_values} = device, :tmps, value) do
+    %{device | tmps: [value | metric_values]}
   end
 end

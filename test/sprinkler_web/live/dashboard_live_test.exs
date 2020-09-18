@@ -10,18 +10,18 @@ defmodule SprinklerWeb.DashboardLiveTest do
     assert html =~ "<h3>Sprinkler 1</h3>"
     assert html =~ "<h3>Sprinkler 2</h3>"
 
-    assert render_component(SprinklerWeb.TemperatureComponent,
-             device: %{id: 1, tmps: [5], hum: [2], moist: [3]}
+    assert render_component(SprinklerWeb.MetricsComponent,
+             device: %{id: 1, tmps: [5], hum: [2], moist: [3], irrigations: [nil]}
            ) =~
              "5"
 
-    assert render_component(SprinklerWeb.TemperatureComponent,
-             device: %{id: 1, tmps: [5], hum: [2], moist: [3]}
+    assert render_component(SprinklerWeb.MetricsComponent,
+             device: %{id: 1, tmps: [5], hum: [2], moist: [3], irrigations: [nil]}
            ) =~
              "2"
 
-    assert render_component(SprinklerWeb.TemperatureComponent,
-             device: %{id: 1, tmps: [5], hum: [2], moist: [3]}
+    assert render_component(SprinklerWeb.MetricsComponent,
+             device: %{id: 1, tmps: [5], hum: [2], moist: [3], irrigations: [nil]}
            ) =~
              "3"
   end
@@ -35,18 +35,18 @@ defmodule SprinklerWeb.DashboardLiveTest do
       payload: %{payload: %{"tmp" => 24}, device_id: 1}
     })
 
-    assert render_component(SprinklerWeb.TemperatureComponent,
-             device: %{id: 1, tmps: [24, 5], hum: [6, 7], moist: [3, 9]}
+    assert render_component(SprinklerWeb.MetricsComponent,
+             device: %{id: 1, tmps: [24, 5], hum: [6, 7], moist: [3, 9], irrigations: [nil]}
            ) =~
              "24"
 
-    assert render_component(SprinklerWeb.TemperatureComponent,
-             device: %{id: 1, tmps: [24, 5], hum: [6, 8], moist: [3, 7]}
+    assert render_component(SprinklerWeb.MetricsComponent,
+             device: %{id: 1, tmps: [24, 5], hum: [6, 8], moist: [3, 7], irrigations: [nil]}
            ) =~
              "6"
 
-    assert render_component(SprinklerWeb.TemperatureComponent,
-             device: %{id: 1, tmps: [24, 5], hum: [2, 6], moist: [3, 7]}
+    assert render_component(SprinklerWeb.MetricsComponent,
+             device: %{id: 1, tmps: [24, 5], hum: [2, 6], moist: [3, 7], irrigations: [nil]}
            ) =~
              "3"
   end

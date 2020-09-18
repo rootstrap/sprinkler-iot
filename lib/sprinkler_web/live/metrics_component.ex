@@ -1,4 +1,4 @@
-defmodule SprinklerWeb.TemperatureComponent do
+defmodule SprinklerWeb.MetricsComponent do
   use SprinklerWeb, :live_component
   require Logger
 
@@ -9,15 +9,19 @@ defmodule SprinklerWeb.TemperatureComponent do
       <div class="metrics-container">
         <div class="metrics-container__metric">
           <h4>Temperature</h4>
-          <div><%= List.first(@device[:tmps]) %>º</div>
+          <div><%= List.first(@device[:tmps]) || "- " %>º</div>
         </div>
         <div class="metrics-container__metric">
           <h4>Humidity</h4>
-          <div><%= List.first(@device[:hum]) %></div>
+          <div><%= List.first(@device[:hum]) || "-" %></div>
         </div>
         <div class="metrics-container__metric">
           <h4>Soil Moisture</h4>
-          <div><%= List.first(@device[:moist]) %></div>
+          <div><%= List.first(@device[:moist]) || "-" %></div>
+        </div>
+        <div class="metrics-container__metric">
+          <h4>Today Irrigations</h4>
+          <div><%= List.first(@device[:irrigations]) || "-" %></div>
         </div>
       </div>
     </div>
