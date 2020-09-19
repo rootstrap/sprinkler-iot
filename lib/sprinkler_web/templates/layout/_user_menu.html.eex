@@ -1,0 +1,10 @@
+<ul class="user-menu">
+<%= if @current_user do %>
+  <li class="username"><%= @current_user.email %></li>
+  <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit), class: "nav__link" %></li>
+  <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "nav__link" %></li>
+<% else %>
+  <li><%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "nav__link" %></li>
+  <li><%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "nav__link" %></li>
+<% end %>
+</ul>

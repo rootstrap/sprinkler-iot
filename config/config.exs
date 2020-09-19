@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :sprinkler,
-  ecto_repos: [Sprinkler.Repo]
+  ecto_repos: [Sprinkler.Repo],
+  mqtt_broker_url: System.get_env("CLOUDMQTT_URL", "mqtt://localhost:1883")
 
 # Configures the endpoint
 config :sprinkler, SprinklerWeb.Endpoint,

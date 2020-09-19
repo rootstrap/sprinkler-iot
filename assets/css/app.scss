@@ -1,4 +1,11 @@
 /* This file is for your main application css. */
+
+@import "abstracts/variables";
+@import "layout/main";
+@import "layout/nav";
+@import "dashboard";
+@import "users";
+@import "base/typography";
 @import "./phoenix.css";
 @import "../node_modules/nprogress/nprogress.css";
 
@@ -67,6 +74,7 @@
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
+  width: 100%;
 }
 .alert-info {
   color: #31708f;

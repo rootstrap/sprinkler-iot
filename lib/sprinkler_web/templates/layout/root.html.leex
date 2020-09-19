@@ -7,24 +7,25 @@
     <%= csrf_meta_tag() %>
     <%= live_title_tag assigns[:page_title] || "Sprinkler", suffix: " · Phoenix Framework" %>
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
     <header>
-      <section class="container">
-        <nav role="navigation">
+      <section class="header-container">
+        <nav role="navigation" class="nav">
+          <%= render "_user_menu.html", assigns %>
           <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home), class: "nav__link" %></li>
             <% end %>
           </ul>
         </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
+        <li><%= link "Sprinkler", to: Routes.root_path(@conn, SprinklerWeb.DashboardLive), class: "header-container__link" %></li>
       </section>
     </header>
-    <%= @inner_content %>
+    <div class="content">
+      <%= @inner_content %>
+    </div>
   </body>
 </html>

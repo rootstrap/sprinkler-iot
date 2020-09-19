@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin-left: 12rem;
+  margin-right: 12rem;
+}
+
+.content {
+  width: 100%;
+}
+
+.header-container {
+  background-color: $color-black;
+  height: 7rem;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 1.5rem;
+
+  &__link {
+      color: $color-gray;
+      display: block;
+      font-size: 3rem;
+      font-weight: $font-weight-bold;
+      padding: 0 1rem 1rem 3.2rem;
+  }
+}
+
+body {
+  margin: 0;
+}
