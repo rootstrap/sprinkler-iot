@@ -35,7 +35,7 @@ defmodule SprinklerWeb.Mqtt.Subscriber do
       userinfo: user_info
     } = URI.parse(broker_url)
 
-    [username, password] = String.split(user_info || ":", ":")
+    [username, password] = (user_info || ":") |> String.split(":")
 
     {host, port, username, password}
   end

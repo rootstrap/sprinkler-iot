@@ -2,8 +2,17 @@ defmodule SprinklerWeb.Mqtt.Handler do
   @moduledoc false
 
   use Tortoise.Handler
+  alias Sprinkler.Devices
+  alias SprinklerWeb.Mqtt.CommandPublisher
+  alias SprinklerWeb.Mqtt.Commands.Irrigate, as: IrrigateCommand
 
   @telemetry_topic "telemetry"
+  @valve_open_time %{
+    water_high: 5,
+    water_medium: 3,
+    water_low: 1,
+    no_water: 0
+  }
 
   def init(args) do
     {:ok, args}
@@ -25,6 +34,12 @@ defmodule SprinklerWeb.Mqtt.Handler do
       device_id: String.to_integer(client_id)
     })
 
+    reading = transform_payload(decoded_payload)
+    device = Devices.get_device(client_id)
+    garden_reading = Devices.new_garden_reading(reading)
+
+    maybe_irrigate_garden(device, garden_reading)
+
     {:ok, state}
   end
 
@@ -45,5 +60,28 @@ defmodule SprinklerWeb.Mqtt.Handler do
     # that is in alignment with other behaviours that implement a
     # terminate-callback
     :ok
+  end
+
+  defp transform_payload(payload) do
+    %{"tmp" => nil, "hum" => nil, "moist" => nil}
+    |> Map.merge(payload)
+    |> Map.new(fn
+      {"tmp", value} -> {:temperature, value}
+      {"hum", value} -> {:humidity, value}
+      {"moist", value} -> {:moisture, value}
+      {k, v} -> {k, v}
+    end)
+  end
+
+  defp maybe_irrigate_garden(nil, _), do: nil
+
+  defp maybe_irrigate_garden(device, garden_reading) do
+    Devices.irrigate_garden(garden_reading, fn water_amount ->
+      seconds_to_open_valve = @valve_open_time[water_amount]
+
+      if seconds_to_open_valve > 0 do
+        CommandPublisher.send_command(device, %IrrigateCommand{water: seconds_to_open_valve})
+      end
+    end)
   end
 end

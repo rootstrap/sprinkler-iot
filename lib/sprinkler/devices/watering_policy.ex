@@ -1,5 +1,5 @@
 defmodule Sprinkler.Devices.WateringPolicy do
-  # TODO: check this values
+  # TODO: check these values
   @soil_moisture_wet 70
   @soil_moisture_medium_wet 50
   @ambience_temperature_high 25
@@ -17,11 +17,11 @@ defmodule Sprinkler.Devices.WateringPolicy do
     humidity = humidity_level(humidity_input)
 
     case {soil_moisture, temperature, humidity} do
-      {:medium, :high, _} -> :water_medium
-      {:medium, :low, :low} -> :water_low
-      {:low, _, :low} -> :water_high
-      {:low, :low, :high} -> :water_medium
       {:low, :high, :high} -> :water_high
+      {:low, _, :low} -> :water_high
+      {:medium, :high, _} -> :water_medium
+      {:low, :low, :high} -> :water_medium
+      {:medium, :low, :low} -> :water_low
       {_, _, _} -> :no_water
     end
   end
