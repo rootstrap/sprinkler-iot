@@ -29,7 +29,7 @@ defmodule SprinklerWeb.DashboardLive do
 
     updated_list =
       Enum.map(socket.assigns.devices, fn
-        %{id: ^device_id, tmps: tmps, hum: hum, moist: moist} = device ->
+        %{id: ^device_id} = device ->
           device
           |> add_reading(:tmps, temperature)
           |> add_reading(:hum, humidity)
