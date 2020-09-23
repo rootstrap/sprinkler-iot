@@ -1,7 +1,9 @@
 .dashboard-page {
   display: flex;
+  flex-flow: row wrap;
   justify-content: space-between;
-  margin: 0 5rem;
+  margin-left: 12rem;
+  margin-right: 12rem;
 }
 
 .device {

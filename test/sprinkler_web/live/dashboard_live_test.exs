@@ -11,17 +11,17 @@ defmodule SprinklerWeb.DashboardLiveTest do
     assert html =~ "<h3>Sprinkler 2</h3>"
 
     assert render_component(SprinklerWeb.MetricsComponent,
-             device: %{id: 1, tmps: [5], hum: [2], moist: [3], irrigations: [nil]}
+             device: %{id: 1, tmps: [5], hum: [2], moist: [3], irrigations: []}
            ) =~
              "5"
 
     assert render_component(SprinklerWeb.MetricsComponent,
-             device: %{id: 1, tmps: [5], hum: [2], moist: [3], irrigations: [nil]}
+             device: %{id: 1, tmps: [5], hum: [2], moist: [3], irrigations: []}
            ) =~
              "2"
 
     assert render_component(SprinklerWeb.MetricsComponent,
-             device: %{id: 1, tmps: [5], hum: [2], moist: [3], irrigations: [nil]}
+             device: %{id: 1, tmps: [5], hum: [2], moist: [3], irrigations: []}
            ) =~
              "3"
   end
@@ -36,17 +36,17 @@ defmodule SprinklerWeb.DashboardLiveTest do
     })
 
     assert render_component(SprinklerWeb.MetricsComponent,
-             device: %{id: 1, tmps: [24, 5], hum: [6, 7], moist: [3, 9], irrigations: [nil]}
+             device: %{id: 1, tmps: [24, 5], hum: [6, 7], moist: [3, 9], irrigations: []}
            ) =~
              "24"
 
     assert render_component(SprinklerWeb.MetricsComponent,
-             device: %{id: 1, tmps: [24, 5], hum: [6, 8], moist: [3, 7], irrigations: [nil]}
+             device: %{id: 1, tmps: [24, 5], hum: [6, 8], moist: [3, 7], irrigations: []}
            ) =~
              "6"
 
     assert render_component(SprinklerWeb.MetricsComponent,
-             device: %{id: 1, tmps: [24, 5], hum: [2, 6], moist: [3, 7], irrigations: [nil]}
+             device: %{id: 1, tmps: [24, 5], hum: [2, 6], moist: [3, 7], irrigations: []}
            ) =~
              "3"
   end
