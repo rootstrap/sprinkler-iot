@@ -1,12 +1,14 @@
 .dashboard-page {
   display: flex;
+  flex-flow: row wrap;
   justify-content: space-between;
-  margin: 0 5rem;
+  margin-left: 12rem;
+  margin-right: 12rem;
 }
 
 .device {
   background-color: $color-gray;
-  padding: 1rem;
+  padding: 2rem;
   width: 56rem;
 
   h3, h4 { font-weight: bold; }
@@ -22,8 +24,10 @@
     &__metric {
       background-color: white;
       border-radius: 0.5rem;
+      margin: 0.5rem;
       padding: 1rem 3rem;
       text-align: center;
+      width: 25rem;
 
       div {
         font-size: 3rem;

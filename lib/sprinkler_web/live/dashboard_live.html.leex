@@ -1,5 +1,5 @@
 <div class="dashboard-page">
   <%= for device <- @devices do %>
-    <%= live_component @socket, SprinklerWeb.TemperatureComponent, device: device %>
+    <%= live_component @socket, SprinklerWeb.MetricsComponent, device: device %>
   <% end %>
 </div>
