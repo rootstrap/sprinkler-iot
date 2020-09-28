@@ -73,6 +73,6 @@ defmodule SprinklerWeb.DashboardLive do
   end
 
   defp format_readings_for_encoding(readings) do
-    Enum.map(readings, fn {value, timestamp} -> [value, timestamp] end)
+    Enum.map(readings, &Tuple.to_list/1)
   end
 end
