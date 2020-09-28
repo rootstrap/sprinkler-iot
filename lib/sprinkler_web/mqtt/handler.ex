@@ -27,7 +27,7 @@ defmodule SprinklerWeb.Mqtt.Handler do
   end
 
   def handle_message(["rs", client_id, "telemetry"], payload, state) do
-    decoded_payload = Jason.decode!(payload)
+    decoded_payload = Map.put(Jason.decode!(payload), "timestamp", DateTime.utc_now())
 
     SprinklerWeb.Endpoint.broadcast(@telemetry_topic, "new_reading", %{
       payload: decoded_payload,
