@@ -1,5 +1,16 @@
 <div class="dashboard-page">
-  <%= for device <- @devices do %>
-    <%= live_component @socket, SprinklerWeb.MetricsComponent, device: device %>
-  <% end %>
+  <div class="devices-readings">
+    <%= for device <- @devices do %>
+      <%= live_component @socket, SprinklerWeb.MetricsComponent, device: device %>
+    <% end %>
+  </div>
+
+  <div
+    id="telemetry-chart__container"
+    phx-update="ignore"
+    data-readings="<%= encoded_devices(@devices) %>"
+    phx-hook="TelemetryChartHook"
+    class="telemetry-chart__container">
+      <canvas id="telemetry-chart" />
+  </div>
 </div>

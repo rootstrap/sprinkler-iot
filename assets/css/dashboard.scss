@@ -1,4 +1,4 @@
-.dashboard-page {
+.devices-readings {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -10,10 +10,10 @@
   background-color: $color-gray;
   padding: 2rem;
   width: 56rem;
+  border-radius: 5px;
+  margin: 0 2rem;
 
   h3, h4 { font-weight: bold; }
-
-  h3 { margin-left: 2rem;}
 
   h4 { color: $color-gray-2; }
 
@@ -35,4 +35,10 @@
       }
     }
   }
+}
+
+.telemetry-chart__container {
+  width: 80%;
+  margin: auto;
+  margin-top: 2rem;
 }
