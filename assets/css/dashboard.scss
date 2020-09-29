@@ -1,17 +1,19 @@
-.dashboard-page {
+.devices-readings {
   display: flex;
+  flex-flow: row wrap;
   justify-content: space-between;
-  margin: 0 5rem;
+  margin-left: 12rem;
+  margin-right: 12rem;
 }
 
 .device {
   background-color: $color-gray;
-  padding: 1rem;
+  padding: 2rem;
   width: 56rem;
+  border-radius: 5px;
+  margin: 0 2rem;
 
   h3, h4 { font-weight: bold; }
-
-  h3 { margin-left: 2rem;}
 
   h4 { color: $color-gray-2; }
 
@@ -22,8 +24,10 @@
     &__metric {
       background-color: white;
       border-radius: 0.5rem;
+      margin: 0.5rem;
       padding: 1rem 3rem;
       text-align: center;
+      width: 25rem;
 
       div {
         font-size: 3rem;
@@ -31,4 +35,10 @@
       }
     }
   }
+}
+
+.telemetry-chart__container {
+  width: 80%;
+  margin: auto;
+  margin-top: 2rem;
 }
