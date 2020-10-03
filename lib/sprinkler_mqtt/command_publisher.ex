@@ -1,4 +1,4 @@
-defmodule SprinklerWeb.Mqtt.CommandPublisher do
+defmodule SprinklerMqtt.CommandPublisher do
   @moduledoc """
   This module is used to publish commands on the correct MQTT topic
   """

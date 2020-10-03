@@ -1,4 +1,4 @@
-defmodule SprinklerWeb.Mqtt.HandlerTest do
+defmodule SprinklerMqtt.HandlerTest do
   use ExUnit.Case, async: true
 
   @telemetry_topic "telemetry"
@@ -6,8 +6,8 @@ defmodule SprinklerWeb.Mqtt.HandlerTest do
   describe "handler methods" do
     import Mock
     alias Sprinkler.Devices
-    alias SprinklerWeb.Mqtt.Commands.Irrigate, as: IrrigateCommand
-    alias SprinklerWeb.Mqtt.Handler
+    alias SprinklerMqtt.Commands.Irrigate, as: IrrigateCommand
+    alias SprinklerMqtt.Handler
 
     setup _ do
       :ok = Ecto.Adapters.SQL.Sandbox.checkout(Sprinkler.Repo)
