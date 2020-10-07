@@ -18,7 +18,7 @@ defmodule Sprinkler.Application do
       # Start a worker by calling: Sprinkler.Worker.start_link(arg)
       # {Sprinkler.Worker, arg}
       # Start a tortoise client
-      SprinklerWeb.Mqtt.Subscriber
+      SprinklerMqtt.Subscriber
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

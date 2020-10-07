@@ -1,4 +1,4 @@
-defmodule SprinklerWeb.Mqtt.Subscriber do
+defmodule SprinklerMqtt.Subscriber do
   @moduledoc false
 
   use Supervisor
@@ -20,7 +20,7 @@ defmodule SprinklerWeb.Mqtt.Subscriber do
          user_name: username,
          password: password,
          server: {Tortoise.Transport.Tcp, host: host, port: port},
-         handler: {SprinklerWeb.Mqtt.Handler, []},
+         handler: {SprinklerMqtt.Handler, []},
          subscriptions: ["rs/+/telemetry"]
        ]}
     ]

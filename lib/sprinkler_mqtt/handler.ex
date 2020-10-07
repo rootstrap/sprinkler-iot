@@ -1,10 +1,10 @@
-defmodule SprinklerWeb.Mqtt.Handler do
+defmodule SprinklerMqtt.Handler do
   @moduledoc false
 
   use Tortoise.Handler
   alias Sprinkler.Devices
-  alias SprinklerWeb.Mqtt.CommandPublisher
-  alias SprinklerWeb.Mqtt.Commands.Irrigate, as: IrrigateCommand
+  alias SprinklerMqtt.CommandPublisher
+  alias SprinklerMqtt.Commands.Irrigate, as: IrrigateCommand
 
   @telemetry_topic "telemetry"
   @valve_open_time %{

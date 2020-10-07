@@ -1,4 +1,4 @@
-defmodule SprinklerWeb.Mqtt.CommandPublisherTest do
+defmodule SprinklerMqtt.CommandPublisherTest do
   use ExUnit.Case, async: false
   import Mock
   alias Sprinkler.Devices.Device
@@ -9,7 +9,7 @@ defmodule SprinklerWeb.Mqtt.CommandPublisherTest do
   describe "publisher methods" do
     test "send_command/2 publish the encoded command on the commands topic" do
       with_mock Tortoise, publish: fn _id, _topic, _message -> :ok end do
-        SprinklerWeb.Mqtt.CommandPublisher.send_command(@device, @command)
+        SprinklerMqtt.CommandPublisher.send_command(@device, @command)
 
         enconded_command = Jason.encode!(@command)
 
