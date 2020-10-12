@@ -1,8 +1,8 @@
 defmodule SprinklerMqtt.IrrigationsStorageTest do
   use ExUnit.Case, async: true
 
-  alias SprinklerMqtt.IrrigationsStorage
   alias Sprinkler.Devices.Device
+  alias SprinklerMqtt.IrrigationsStorage
 
   setup _ do
     {:ok, _pid} = IrrigationsStorage.start_link()

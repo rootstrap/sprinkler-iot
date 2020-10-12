@@ -85,7 +85,7 @@ defmodule SprinklerMqtt.Handler do
       if seconds_to_open_valve > 0 do
         CommandPublisher.send_command(device, %IrrigateCommand{water: seconds_to_open_valve})
 
-        IrrigationsStorage.add_irrigation(Devices.get_device!(device.id), water_amount)
+        IrrigationsStorage.add_irrigation(device, water_amount)
 
         SprinklerWeb.Endpoint.broadcast(@irrigations, "new_irrigation", %{
           device_id: String.to_integer(device.id)

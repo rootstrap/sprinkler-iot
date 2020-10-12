@@ -1,8 +1,8 @@
 defmodule SprinklerWeb.DashboardLive do
   use SprinklerWeb, :live_view
 
-  alias SprinklerMqtt.IrrigationsStorage
   alias Sprinkler.Devices
+  alias SprinklerMqtt.IrrigationsStorage
 
   @telemetry_topic "telemetry"
   @irrigations_topic "irrigations"
