@@ -5,12 +5,12 @@ defmodule SprinklerWeb.DashboardLive do
   alias Sprinkler.Devices
 
   @telemetry_topic "telemetry"
-  @irrigation_topic "irrigations"
+  @irrigations_topic "irrigations"
 
   @impl true
   def mount(_params, _session, socket) do
     Phoenix.PubSub.subscribe(Sprinkler.PubSub, @telemetry_topic)
-    Phoenix.PubSub.subscribe(Sprinkler.PubSub, @irrigation_topic)
+    Phoenix.PubSub.subscribe(Sprinkler.PubSub, @irrigations_topic)
 
     {:ok,
      assign(socket, :devices, [
@@ -51,7 +51,7 @@ defmodule SprinklerWeb.DashboardLive do
   @impl true
   def handle_info(
         %{
-          topic: @irrigation_topic,
+          topic: @irrigations_topic,
           event: "new_irrigation",
           payload: %{device_id: device_id}
         },
