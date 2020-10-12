@@ -1,16 +1,21 @@
 defmodule SprinklerWeb.DashboardLive do
   use SprinklerWeb, :live_view
 
+  alias SprinklerMqtt.IrrigationsStorage
+  alias Sprinkler.Devices
+
   @telemetry_topic "telemetry"
+  @irrigation_topic "irrigations"
 
   @impl true
   def mount(_params, _session, socket) do
     Phoenix.PubSub.subscribe(Sprinkler.PubSub, @telemetry_topic)
+    Phoenix.PubSub.subscribe(Sprinkler.PubSub, @irrigation_topic)
 
     {:ok,
      assign(socket, :devices, [
-       %{id: 1, tmps: [], hum: [], moist: [], irrigations: []},
-       %{id: 2, tmps: [], hum: [], moist: [], irrigations: []}
+       %{id: 1, tmps: [], hum: [], moist: [], irrigations: IrrigationsStorage.today_irrigations(Devices.get_device!(1))},
+       %{id: 2, tmps: [], hum: [], moist: [], irrigations: IrrigationsStorage.today_irrigations(Devices.get_device!(2))}
      ])}
   end
 
@@ -39,6 +44,27 @@ defmodule SprinklerWeb.DashboardLive do
         device ->
           device
       end)
+
+    {:noreply, assign(socket, devices: updated_list)}
+  end
+
+  @impl true
+  def handle_info(
+        %{
+          topic: @irrigation_topic,
+          event: "new_irrigation",
+          payload: %{device_id: device_id}
+        },
+        socket
+      ) do
+
+    today_irrigations = IrrigationsStorage.today_irrigations(Devices.get_device!(device_id))
+
+    updated_list =
+      Enum.map(socket.assigns.devices, fn
+        %{id: ^device_id, irrigations: irrigations} = device -> %{device | irrigations: today_irrigations}
+        device -> device
+     end)
 
     {:noreply, assign(socket, devices: updated_list)}
   end

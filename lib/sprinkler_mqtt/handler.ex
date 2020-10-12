@@ -5,8 +5,11 @@ defmodule SprinklerMqtt.Handler do
   alias Sprinkler.Devices
   alias SprinklerMqtt.CommandPublisher
   alias SprinklerMqtt.Commands.Irrigate, as: IrrigateCommand
+  alias SprinklerMqtt.IrrigationsStorage
 
   @telemetry_topic "telemetry"
+  @irrigations "irrigations"
+
   @valve_open_time %{
     water_high: 5,
     water_medium: 3,
@@ -81,6 +84,12 @@ defmodule SprinklerMqtt.Handler do
 
       if seconds_to_open_valve > 0 do
         CommandPublisher.send_command(device, %IrrigateCommand{water: seconds_to_open_valve})
+
+        irrigation_level = 0
+        IrrigationsStorage.add_irrigation(Devices.get_device!(device.id), irrigation_level)
+        SprinklerWeb.Endpoint.broadcast(@irrigations, "new_irrigation", %{
+          device_id: String.to_integer(device.id)
+        })
       end
     end)
   end
