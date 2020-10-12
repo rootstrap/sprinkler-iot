@@ -40,7 +40,7 @@ defmodule SprinklerMqtt.HandlerTest do
     end
 
     test "handle_message/3 sends a command to irrigate when necessary" do
-      with_mock Tortoise, publish: fn _id, _topic, _message -> :ok end do
+      with_mock Tortoise, publish: fn _id, _topic, _message, _opts -> :ok end do
         reading = Jason.encode!(%{"tmp" => 27, "moist" => 40, "hum" => 60})
         device = device_fixture()
 
@@ -50,7 +50,8 @@ defmodule SprinklerMqtt.HandlerTest do
           Tortoise.publish(
             RootstrapSprinkler,
             "rs/#{device.id}/commands",
-            Jason.encode!(%IrrigateCommand{water: 5})
+            Jason.encode!(%IrrigateCommand{water: 5}),
+            qos: 2
           )
         )
       end
