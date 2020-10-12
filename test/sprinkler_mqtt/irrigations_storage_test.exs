@@ -10,7 +10,6 @@ defmodule SprinklerMqtt.IrrigationsStorageTest do
     :ok
   end
 
-
   describe "add_irrigation/2" do
     test "creates the key when there are no previous irrigations" do
       device = %Device{id: 1}
@@ -44,7 +43,6 @@ defmodule SprinklerMqtt.IrrigationsStorageTest do
       assert [] = IrrigationsStorage.get_irrigations(device)
     end
   end
-
 
   describe "get_today_irrigations/1" do
     test "returns an empty array if there are no irrigations for the device" do

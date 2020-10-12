@@ -14,8 +14,20 @@ defmodule SprinklerWeb.DashboardLive do
 
     {:ok,
      assign(socket, :devices, [
-       %{id: 1, tmps: [], hum: [], moist: [], irrigations: IrrigationsStorage.today_irrigations(Devices.get_device!(1))},
-       %{id: 2, tmps: [], hum: [], moist: [], irrigations: IrrigationsStorage.today_irrigations(Devices.get_device!(2))}
+       %{
+         id: 1,
+         tmps: [],
+         hum: [],
+         moist: [],
+         irrigations: IrrigationsStorage.today_irrigations(Devices.get_device!(1))
+       },
+       %{
+         id: 2,
+         tmps: [],
+         hum: [],
+         moist: [],
+         irrigations: IrrigationsStorage.today_irrigations(Devices.get_device!(2))
+       }
      ])}
   end
 
@@ -57,14 +69,16 @@ defmodule SprinklerWeb.DashboardLive do
         },
         socket
       ) do
-
     today_irrigations = IrrigationsStorage.today_irrigations(Devices.get_device!(device_id))
 
     updated_list =
       Enum.map(socket.assigns.devices, fn
-        %{id: ^device_id, irrigations: irrigations} = device -> %{device | irrigations: today_irrigations}
-        device -> device
-     end)
+        %{id: ^device_id, irrigations: irrigations} = device ->
+          %{device | irrigations: today_irrigations}
+
+        device ->
+          device
+      end)
 
     {:noreply, assign(socket, devices: updated_list)}
   end
