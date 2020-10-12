@@ -1,10 +1,11 @@
-defmodule SprinklerWeb.Mqtt.Handler do
+defmodule SprinklerMqtt.Handler do
   @moduledoc false
 
   use Tortoise.Handler
+  require Logger
   alias Sprinkler.Devices
-  alias SprinklerWeb.Mqtt.CommandPublisher
-  alias SprinklerWeb.Mqtt.Commands.Irrigate, as: IrrigateCommand
+  alias SprinklerMqtt.CommandPublisher
+  alias SprinklerMqtt.Commands.Irrigate, as: IrrigateCommand
 
   @telemetry_topic "telemetry"
   @valve_open_time %{
@@ -23,10 +24,16 @@ defmodule SprinklerWeb.Mqtt.Handler do
     # inform the rest of your system if the connection is currently
     # open or closed; tortoise should be busy reconnecting if you get
     # a `:down`
+
+    if state == :down do
+      Logger.error("MQTT connection down")
+    end
+
     {:ok, state}
   end
 
-  def handle_message(["rs", client_id, "telemetry"], payload, state) do
+  def handle_message(["rs", client_id, "telemetry"] = topic, payload, state) do
+    Logger.info("Telemetry received on #{Enum.join(topic, "/")} with #{payload}")
     decoded_payload = Map.put(Jason.decode!(payload), "timestamp", DateTime.utc_now())
 
     SprinklerWeb.Endpoint.broadcast(@telemetry_topic, "new_reading", %{
@@ -55,10 +62,11 @@ defmodule SprinklerWeb.Mqtt.Handler do
     {:ok, state}
   end
 
-  def terminate(_reason, _state) do
+  def terminate(reason, _state) do
     # tortoise doesn't care about what you return from terminate/2,
     # that is in alignment with other behaviours that implement a
     # terminate-callback
+    Logger.error("MQTT connection terminatin. Reason: #{inspect(reason)}")
     :ok
   end
 
@@ -78,6 +86,12 @@ defmodule SprinklerWeb.Mqtt.Handler do
   defp maybe_irrigate_garden(device, garden_reading) do
     Devices.irrigate_garden(garden_reading, fn water_amount ->
       seconds_to_open_valve = @valve_open_time[water_amount]
+
+      Logger.info(
+        "Irrigating for #{Integer.to_string(seconds_to_open_valve)} (level: #{
+          inspect(water_amount)
+        })"
+      )
 
       if seconds_to_open_valve > 0 do
         CommandPublisher.send_command(device, %IrrigateCommand{water: seconds_to_open_valve})

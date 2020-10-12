@@ -1,4 +1,4 @@
-defmodule SprinklerWeb.Mqtt.HandlerTest do
+defmodule SprinklerMqtt.HandlerTest do
   use ExUnit.Case, async: true
 
   @telemetry_topic "telemetry"
@@ -6,8 +6,8 @@ defmodule SprinklerWeb.Mqtt.HandlerTest do
   describe "handler methods" do
     import Mock
     alias Sprinkler.Devices
-    alias SprinklerWeb.Mqtt.Commands.Irrigate, as: IrrigateCommand
-    alias SprinklerWeb.Mqtt.Handler
+    alias SprinklerMqtt.Commands.Irrigate, as: IrrigateCommand
+    alias SprinklerMqtt.Handler
 
     setup _ do
       :ok = Ecto.Adapters.SQL.Sandbox.checkout(Sprinkler.Repo)
@@ -40,7 +40,7 @@ defmodule SprinklerWeb.Mqtt.HandlerTest do
     end
 
     test "handle_message/3 sends a command to irrigate when necessary" do
-      with_mock Tortoise, publish: fn _id, _topic, _message -> :ok end do
+      with_mock Tortoise, publish: fn _id, _topic, _message, _opts -> :ok end do
         reading = Jason.encode!(%{"tmp" => 27, "moist" => 40, "hum" => 60})
         device = device_fixture()
 
@@ -50,7 +50,8 @@ defmodule SprinklerWeb.Mqtt.HandlerTest do
           Tortoise.publish(
             RootstrapSprinkler,
             "rs/#{device.id}/commands",
-            Jason.encode!(%IrrigateCommand{water: 5})
+            Jason.encode!(%IrrigateCommand{water: 5}),
+            qos: 2
           )
         )
       end
