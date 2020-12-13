@@ -2,6 +2,26 @@ defmodule SprinklerWeb.UserRegistrationControllerTest do
   use SprinklerWeb.ConnCase, async: true
 
   import Sprinkler.UsersFixtures
+  alias Sprinkler.Devices
+
+  @create_attrs %{client_id: "some client_id", name: "some name", secret: "some secret"}
+  @attrs_device1 %{id: 1, client_id: "some client_id", name: "some name", secret: "some secret"}
+  @attrs_device2 %{id: 2, client_id: "some client_id", name: "some name", secret: "some secret"}
+
+  def fixture(attrs \\ %{}) do
+    {:ok, device} =
+      attrs
+      |> Enum.into(@create_attrs)
+      |> Devices.create_device()
+
+    device
+  end
+
+  defp create_devices(_) do
+    device_1 = fixture(@attrs_device1)
+    device_2 = fixture(@attrs_device2)
+    %{device_1: device_1, device_2: device_2}
+  end
 
   describe "GET /users/register" do
     test "renders registration page", %{conn: conn} do
@@ -19,6 +39,8 @@ defmodule SprinklerWeb.UserRegistrationControllerTest do
   end
 
   describe "POST /users/register" do
+    setup [:create_devices]
+
     @tag :capture_log
     test "creates account and logs the user in", %{conn: conn} do
       email = unique_user_email()

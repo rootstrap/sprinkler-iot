@@ -73,7 +73,7 @@ defmodule SprinklerWeb.DashboardLive do
 
     updated_list =
       Enum.map(socket.assigns.devices, fn
-        %{id: ^device_id, irrigations: irrigations} = device ->
+        %{id: ^device_id} = device ->
           %{device | irrigations: today_irrigations}
 
         device ->

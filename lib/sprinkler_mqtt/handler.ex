@@ -87,8 +87,8 @@ defmodule SprinklerMqtt.Handler do
 
         IrrigationsStorage.add_irrigation(device, water_amount)
 
-        SprinklerWeb.Endpoint.broadcast(@irrigations, "new_irrigation", %{
-          device_id: String.to_integer(device.id)
+        SprinklerWeb.Endpoint.broadcast(@irrigations_topic, "new_irrigation", %{
+          device_id: device.id
         })
       end
     end)

@@ -13,7 +13,7 @@ defmodule Sprinkler.Devices.Device do
   @doc false
   def changeset(device, attrs) do
     device
-    |> cast(attrs, [:name, :secret, :client_id])
+    |> cast(attrs, [:id, :name, :secret, :client_id])
     |> validate_required([:name, :secret, :client_id])
   end
 end
