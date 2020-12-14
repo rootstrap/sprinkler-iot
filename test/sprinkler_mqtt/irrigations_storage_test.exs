@@ -1,15 +1,14 @@
 defmodule SprinklerMqtt.IrrigationsStorageTest do
   use ExUnit.Case, async: true
 
-  alias SprinklerMqtt.IrrigationsStorage
   alias Sprinkler.Devices.Device
+  alias SprinklerMqtt.IrrigationsStorage
 
   setup _ do
     {:ok, _pid} = IrrigationsStorage.start_link()
 
     :ok
   end
-
 
   describe "add_irrigation/2" do
     test "creates the key when there are no previous irrigations" do
@@ -44,7 +43,6 @@ defmodule SprinklerMqtt.IrrigationsStorageTest do
       assert [] = IrrigationsStorage.get_irrigations(device)
     end
   end
-
 
   describe "get_today_irrigations/1" do
     test "returns an empty array if there are no irrigations for the device" do

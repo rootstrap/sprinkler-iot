@@ -2,9 +2,27 @@ defmodule SprinklerWeb.UserSessionControllerTest do
   use SprinklerWeb.ConnCase, async: true
 
   import Sprinkler.UsersFixtures
+  alias Sprinkler.Devices
+
+  @create_attrs %{client_id: "some client_id", name: "some name", secret: "some secret"}
+  @attrs_device1 %{id: 1, client_id: "some client_id", name: "some name", secret: "some secret"}
+  @attrs_device2 %{id: 2, client_id: "some client_id", name: "some name", secret: "some secret"}
+
+  def device_fixture(attrs \\ %{}) do
+    {:ok, device} =
+      attrs
+      |> Enum.into(@create_attrs)
+      |> Devices.create_device()
+
+    device
+  end
 
   setup do
-    %{user: user_fixture()}
+    %{
+      user: user_fixture(),
+      device_1: device_fixture(@attrs_device1),
+      device_2: device_fixture(@attrs_device2)
+    }
   end
 
   describe "GET /users/log_in" do

@@ -3,7 +3,7 @@ defmodule SprinklerMqtt.IrrigationsStorage do
 
   alias Sprinkler.Devices.Device
 
-  def start_link() do
+  def start_link(_) do
     Agent.start_link(fn -> %{} end, name: __MODULE__)
   end
 
@@ -16,12 +16,12 @@ defmodule SprinklerMqtt.IrrigationsStorage do
   end
 
   def get_irrigations(%Device{id: device_id}) do
-    Agent.get(__MODULE__, & &1[device_id] || [])
+    Agent.get(__MODULE__, &(&1[device_id] || []))
   end
 
   def today_irrigations(%Device{id: device_id}) do
     Agent.get(__MODULE__, fn irrigations ->
-
+      []
     end)
   end
 end
